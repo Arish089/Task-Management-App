@@ -18,4 +18,4 @@
 
 4. I've used redux and react-redux for the overall state management and extensively used react-based Chakra UI for designing the UI.
 
-5. If asked, I can also create backend using express and can use MongoDB as database to convert it into MERN full-stack app.
+5. As you can see, there's a backend folder so that in future if asked, I can also create backend using express and can use MongoDB as database to convert it into MERN full-stack app.
