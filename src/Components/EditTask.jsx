@@ -65,7 +65,7 @@ useEffect(()=>{
           <ModalBody>
             <FormControl >
                 <FormLabel>Title</FormLabel>
-                <Input disabled={} type='text' value={title} onChange={(e)=>{
+                <Input disabled={true} type='text' value={title} onChange={(e)=>{
                     setTitle(e.target.value)
                     dispatch({type:ADD_TITLE,payload:e.target.value})
                     }} />
@@ -75,6 +75,16 @@ useEffect(()=>{
                     dispatch({type:ADD_DESCRIPTION,payload:e.target.value})
                 }}
                     />
+                    <FormLabel>Status</FormLabel>
+                <Select value={status} onChange={(e)=>{setStatus(e.target.value)
+                dispatch({type:STATUS, payload:e.target.value})}}>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">in Progress</option>
+                    <option value="Completed" disabled={ false } >Completed</option>
+                    <option value="Deployed" disabled={ false }>Deployed</option>
+                    <option value="Deferred" >Deferred</option>
+                </Select>
+
                 <FormLabel>Start Date</FormLabel>
                 <Input disabled={true} type='date' value={start} max={formattedToday} onChange={(e)=>{
                     setStart(e.target.value)
@@ -87,15 +97,7 @@ useEffect(()=>{
                     dispatch({type:END_DATE,payload:e.target.value})
                 }}/>
 
-                <FormLabel>Status</FormLabel>
-                <Select value={status} onChange={(e)=>{setStatus(e.target.value)
-                dispatch({type:STATUS, payload:e.target.value})}}>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">in Progress</option>
-                    <option value="Completed" disabled={end === "" || new Date(end) > new Date() ?true: false } >Completed</option>
-                    <option value="Deployed" disabled={end === "" || new Date(end) > new Date() ?true: false }>Deployed</option>
-                    <option value="Deferred" >Deferred</option>
-                </Select>
+                
                 <FormLabel>Assignee</FormLabel>
                 <Input disabled={true} value={assignee} onChange={(e)=>{setAssignee(e.target.value)
                 dispatch({type:ASSIGNEE, payload: e.target.value})}}/>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+
 import { Box, Flex, Heading, Spacer, Button, FormControl, Input, Select, Text, useDisclosure } from '@chakra-ui/react'
 import { FaUserCircle } from 'react-icons/fa'
 import AddTask from './Components/AddTask';
@@ -55,12 +56,7 @@ const Filter = (data) => {
   return data;
 };
 
-const FilterDate = (data)=>{
-  if(filterDate.start_Date !== '' && filterDate.end_Date !== ''){
-    return data.filter(unit=> unit.start_Date >= new Date(filterDate.start_Date) && unit.start_Date <= new Date(filterDate.end_Date))
-  }else
-  return data
-}
+
 
 const FetchTask = async ()=>{
   try {
@@ -69,8 +65,7 @@ const FetchTask = async ()=>{
     console.log(data);
     let fildata =Filter(data)
     console.log(fildata);
-    let finalFilter = FilterDate(fildata)
-    let sortedData = Sort(sortCriteria,finalFilter)
+    let sortedData = Sort(sortCriteria,fildata)
     setTasks(sortedData) 
     return data
   } catch (error) {
@@ -95,8 +90,8 @@ useEffect(()=>{
         <Box pt={2}><FaUserCircle size={40} color='silver' /></Box>
       </Flex>
       
-      <FormControl>
-        <Flex direction='column' w='80%' m='auto' gap={8} justifyContent='center' h='auto' p={6} pb={2} border='1px solid lightblue'>
+      <FormControl py={8}>
+        <Flex direction='column' w='80%' m='auto' gap={8} justifyContent='center' h='auto' p={6} pb={6} border='1px solid lightblue'>
 
           <Flex direction={{ base: 'column', lg: 'row' }} justifyContent='space-between' gap={{ base: 4 }} textAlign={{ base: 'center', md: 'inherit' }}>
 
@@ -116,14 +111,7 @@ useEffect(()=>{
                 <option value="P3">P3</option>
               </Select>
               
-              <Input type='date' value={filterDate.start_Date} onChange={(e)=>setFilterDate({
-                ...filterDate,
-                start_Date: e.target.value
-              })}/>
-              <Input type='date' value={filterDate.end_Date} onChange={(e)=>setFilterDate({
-                ...filterDate,
-                end_Date: e.target.value
-              })} />
+              
             </Flex>
             <Spacer />
 

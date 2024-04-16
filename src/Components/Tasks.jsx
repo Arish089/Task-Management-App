@@ -12,6 +12,8 @@ const Tasks = ({tasks,del,setDel,FetchTask,head}) => {
 const [edit,setEdit] = useState(true)
 const [editId,setEditId] = useState('')
 
+const [deleteId,setDeleteId] = useState('')
+
 const DeleteTask = async (id)=>{
   try {
     const resp = await axios.delete(`http://localhost:8080/tasks/${id}`)
@@ -53,9 +55,12 @@ const handleCloseAlert = () => {
                           <FaEllipsisV />
                           </MenuButton>
                           <MenuList color='black'>
-                            <MenuItem onClick={()=>onOpen()}>Edit</MenuItem>
-                            <AddTask edit={edit} setEdit={setEdit} id={task.id} onClose={onClose} FetchTask={()=>FetchTask()} isOpen={isOpen}/>
-                            <MenuItem onClick={handleOpenAlert}>Delete</MenuItem>
+                            <MenuItem onClick={()=>{
+                              setEditId(task.id)
+                              onOpen()}}>Edit</MenuItem>
+                              <AddTask edit={edit} setEdit={setEdit} id={editId} onClose={onClose} FetchTask={()=>FetchTask()} isOpen={isOpen}/>
+                            <MenuItem onClick={()=>{handleOpenAlert()
+                            setDeleteId(task.id)}}>Delete</MenuItem>
                             <AlertDialog isOpen={isAlertOpen} onClose={handleCloseAlert}>
         <AlertDialogOverlay />
         <AlertDialogContent>
@@ -65,7 +70,8 @@ const handleCloseAlert = () => {
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button onClick={handleCloseAlert}>Cancel</Button>
-            <Button colorScheme="red" onClick={()=>DeleteTask(task.id)}>Confirm</Button>
+            <Button colorScheme="red" onClick={()=>{DeleteTask(deleteId)
+            handleCloseAlert()}}>Confirm</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -78,7 +84,6 @@ const handleCloseAlert = () => {
               </Box>
             
             </>)}
-            
             </Flex>
             )
 }

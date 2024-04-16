@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import { Box, Button, Modal,ModalOverlay,ModalContent,ModalHeader, 
-    ModalCloseButton, ModalBody, ModalFooter,Select, FormControl, Input, FormLabel } from '@chakra-ui/react'
+    ModalCloseButton, ModalBody, ModalFooter,Select, FormControl, Input, FormLabel, Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react'
 import {useDispatch,useSelector} from 'react-redux'
 import { ADD_DESCRIPTION, ADD_TITLE, ASSIGNEE, END_DATE, PRIORITY, RESET, START_DATE, STATUS } from '../redux/actionTypes'
 import { store } from '../redux/store'
@@ -8,7 +8,9 @@ import axios from 'axios'
 
 
 const AddTask = ({onClose,isOpen,FetchTask,edit,id}) => {
+  
     const state = useSelector(store=>store)
+
     const [Tasks,setTasks] = useState([])
     const [singleTask,setSingleTask] = useState({})
    
@@ -23,16 +25,28 @@ const AddTask = ({onClose,isOpen,FetchTask,edit,id}) => {
     const [status,setStatus] = useState('')
     const [assignee,setAssignee] = useState('')
     const [priority,setPriority] = useState('')
+
+    const [showAlert,setShowAlert] = useState(false)
     
 
     function handleSubmit(e){
         
         //console.log(title);
+
+     
+
         console.log(state);
-        
+        setShowAlert(false);
        PostTask(state)
       
        dispatch({type:RESET})
+       setTitle("")
+       setDescription("")
+       setStart("")
+       setEnd("")
+       setStatus("")
+       setAssignee("")
+       setPriority("")
        
      // localStorage.clear() 
        // setTasks([])
@@ -84,7 +98,7 @@ const EditTask = async ()=>{
 
 useEffect(() => {
         if (edit && isOpen) {
-            FetchTask2().then(final => setSingleTask(final));
+            FetchTask2().then(final => final.id === id ? setSingleTask(final) : null);
         }
     }, [edit, isOpen]);
 
@@ -92,12 +106,26 @@ const handleSubmit2 = ()=>{
 console.log(singleTask);
 EditTask()
 }
+
+const handleKeyDown = (event) => {
+  // Prevent typing if the input is focused
+  if (event.target === document.activeElement) {
+      event.preventDefault();
+  }}
   return (
     <Box>
+         
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Modal Title
+          {showAlert && (
+      <Alert status="error">
+        <AlertIcon />
+        <AlertTitle>Input field is mandatory</AlertTitle>
+      </Alert>
+    )}
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl >
@@ -113,13 +141,13 @@ EditTask()
                 }}
                     />
                 <FormLabel>Start Date</FormLabel>
-                <Input type='date' value={start} max={formattedToday} onChange={(e)=>{
+                <Input type='date' value={start} max={formattedToday} onKeyDown={handleKeyDown} onChange={(e)=>{
                     setStart(e.target.value)
                     dispatch({type:START_DATE,payload:e.target.value})
                 }}/>
 
                 <FormLabel>End Date</FormLabel>
-                <Input type='date' value={end} min={start} onChange={(e)=>{
+                <Input type='date' value={end} min={start} onKeyDown={handleKeyDown} onChange={(e)=>{
                     setEnd(e.target.value)
                     dispatch({type:END_DATE,payload:e.target.value})
                 }}/>
@@ -127,6 +155,7 @@ EditTask()
                 <FormLabel>Status</FormLabel>
                 <Select value={status} onChange={(e)=>{setStatus(e.target.value)
                 dispatch({type:STATUS, payload:e.target.value})}}>
+                  <option defaultValue=""></option>
                     <option value="Pending">Pending</option>
                     <option value="In Progress">in Progress</option>
                     <option value="Completed" disabled={end === "" || new Date(end) > new Date() ?true: false } >Completed</option>
@@ -139,6 +168,7 @@ EditTask()
                 <FormLabel>Priority</FormLabel>
                 <Select value={priority} onChange={(e)=>{setPriority(e.target.value)
                 dispatch({type:PRIORITY, payload: e.target.value})}}>
+                    <option defaultValue=""></option>
                     <option value="P1">P1</option>
                     <option value="P2">P2</option>
                     <option value="P3">P3</option>
@@ -147,13 +177,22 @@ EditTask()
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={FetchTask}>
+            <Button colorScheme='blue' mr={3} onClick={()=>{FetchTask()
+            onClose()}}>
               Close
             </Button>
-            <Button type='submit' onClick={handleSubmit}>Submit</Button>
+            <Button type='submit' onClick={()=>{
+                 if (title.trim() !== "" && description.trim() !== "" && start.trim() !== "" && status.trim() !== "" && assignee.trim() !== "" && priority.trim() !== "") {
+                   // Show alert if any required field is empty
+                  handleSubmit()    
+              }else{
+                setShowAlert(true);
+              }
+              }}>Submit</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+
 {edit && <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -172,6 +211,17 @@ EditTask()
                     dispatch({type:ADD_DESCRIPTION,payload:e.target.value})
                 }} placeholder={singleTask.description}
                     />
+                    
+                <FormLabel>Status</FormLabel>
+                <Select value={status} onChange={(e)=>{setStatus(e.target.value) 
+                dispatch({type:STATUS, payload:e.target.value})}} placeholder={singleTask.status}>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">in Progress</option>
+                    <option value="Completed" disabled={new Date(end) > new Date() ?true: false } >Completed</option>
+                    <option value="Deployed" disabled={ new Date(end) > new Date() ?true: false }>Deployed</option>
+                    <option value="Deferred" >Deferred</option>
+                </Select>
+
                 <FormLabel>Start Date</FormLabel>
                 <Input disabled={edit} type='date' value={start} max={formattedToday} onChange={(e)=>{
                     setStart(e.target.value)
@@ -184,15 +234,7 @@ EditTask()
                     dispatch({type:END_DATE,payload:e.target.value})
                 }} placeholder={singleTask.end_Date} />
 
-                <FormLabel>Status</FormLabel>
-                <Select value={status} onChange={(e)=>{setStatus(e.target.value) 
-                dispatch({type:STATUS, payload:e.target.value})}} placeholder={singleTask.status}>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">in Progress</option>
-                    <option value="Completed" disabled={end === "" || new Date(end) > new Date() ?true: false } >Completed</option>
-                    <option value="Deployed" disabled={end === "" || new Date(end) > new Date() ?true: false }>Deployed</option>
-                    <option value="Deferred" >Deferred</option>
-                </Select>
+                
                 <FormLabel>Assignee</FormLabel>
                 <Input disabled={edit} placeholder={singleTask.assignee} value={assignee} onChange={(e)=>{setAssignee(e.target.value)
                 dispatch({type:ASSIGNEE, payload: e.target.value})}}/>
