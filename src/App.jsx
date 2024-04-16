@@ -3,8 +3,7 @@ import './App.css'
 
 import { Box, Flex, Heading, Spacer, Button, FormControl, Input, Select, Text, useDisclosure } from '@chakra-ui/react'
 import { FaUserCircle } from 'react-icons/fa'
-import AddTask from './Components/AddTask';
-import { useSelector } from 'react-redux';
+import TaskInput from './Components/TaskInput';
 import Tasks from './Components/Tasks';
 import axios from 'axios';
 
@@ -23,28 +22,18 @@ const [filterTask,setFilterTask] = useState({
   assignee:'',
 })
 
-const [filterDate,setFilterDate] = useState({
-  start_Date:'',
-  end_Date:''
-})
 
+// Sorting by 'priority'
 const Sort=(criteria,data)=>{
   if(criteria === 'priority_asc'){
       data.sort((a, b) => parseInt(a.priority.substring(1))- parseInt(b.priority.substring(1)));
   }else if(criteria === 'priority_desc'){
     data.sort((a, b) => parseInt(b.priority.substring(1))- parseInt(a.priority.substring(1)));
-}else if(criteria === 'start_Date_asc'){
-  data.sort((a,b) => new Date(a.start_Date) - new Date(b.start_Date))
-}else if(criteria === 'start_Date_desc'){
-  data.sort((a,b) => new Date(b.start_Date) - new Date(a.start_Date))
-}else if(criteria === 'end_Date_asc'){
-  data.sort((a,b) => new Date(a.end_Date) - new Date(b.end_Date))
-}else if(criteria === 'end_Date_desc'){
-  data.sort((a,b) => new Date(b.end_Date) - new Date(a.end_Date))
 }
 return data;
 }
 
+// Filtering by 'priority' and 'assignee'
 const Filter = (data) => {
   if (filterTask.priority !== '' && filterTask.assignee !== '') {
     return data.filter(unit => unit.assignee === filterTask.assignee && unit.priority === filterTask.priority );
@@ -75,11 +64,7 @@ const FetchTask = async ()=>{
 
 useEffect(()=>{
   FetchTask()
-  
-  //console.log(JSON.parse(localStorage.getItem('tasks')));
-  //console.log(tasks);
-  //console.log(tasks.filter(task => task.status === "pending")); 
-},[onClose,onOpen,del,sortCriteria,filterTask,filterDate])
+},[onClose,onOpen,del,sortCriteria,filterTask])
 
 
   return (
@@ -119,7 +104,7 @@ useEffect(()=>{
               <Button bg='#178582' fontWeight={'800'} fontSize='large' color='#BFA181' onClick={onOpen}>
                 Add New Task +
               </Button>
-              <AddTask onClose={onClose} isOpen={isOpen} FetchTask={()=>FetchTask()}/>
+              <TaskInput onClose={onClose} isOpen={isOpen} FetchTask={()=>FetchTask()}/>
             </Box>
 
           </Flex>

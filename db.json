@@ -6,7 +6,7 @@
       "description": "tenth",
       "start_Date": "2024-03-11",
       "end_Date": "2024-03-20",
-      "status": "Completed",
+      "status": "Pending",
       "assignee": "Amanda",
       "priority": "P2"
     },
@@ -16,9 +16,9 @@
       "description": "sixth",
       "start_Date": "2024-03-01",
       "end_Date": "2024-04-01",
-      "status": "Completed",
+      "status": "",
       "assignee": "arish",
-      "priority": "P1"
+      "priority": "P3"
     },
     {
       "id": "7432",
@@ -28,17 +28,7 @@
       "end_Date": "2024-03-15",
       "status": "Deployed",
       "assignee": "Arish",
-      "priority": "P2"
-    },
-    {
-      "id": "4343",
-      "title": "task1",
-      "description": "first",
-      "start_Date": "2024-04-01",
-      "end_Date": "2024-04-17",
-      "status": "Deployed",
-      "assignee": "John",
-      "priority": "P1"
+      "priority": "P3"
     },
     {
       "id": "ee49",
@@ -46,9 +36,9 @@
       "description": "second",
       "start_Date": "2024-04-01",
       "end_Date": "2024-05-05",
-      "status": "Pending",
+      "status": "",
       "assignee": "",
-      "priority": "P1"
+      "priority": "P3"
     },
     {
       "id": "8bc3",
@@ -56,9 +46,9 @@
       "description": "d ljd ",
       "start_Date": "",
       "end_Date": "",
-      "status": "In Progress",
+      "status": "",
       "assignee": "sdnkd",
-      "priority": "P2"
+      "priority": "P3"
     },
     {
       "id": "1c7c",
@@ -66,9 +56,9 @@
       "description": "seventh",
       "start_Date": "2024-03-06",
       "end_Date": "2024-03-22",
-      "status": "Deployed",
+      "status": "",
       "assignee": "arish ali",
-      "priority": "P3"
+      "priority": "P1"
     },
     {
       "id": "be04",
@@ -91,94 +81,14 @@
       "priority": "P3"
     },
     {
-      "id": "ed63",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "d839",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "cc30",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "0a2b",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "ee5e",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "1367",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "38c9",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
       "id": "e829",
       "title": "Error Handling",
       "description": "Empty Field Error is handled",
       "start_Date": "",
       "end_Date": "",
-      "status": "In Progress",
-      "assignee": "newGuy",
-      "priority": "P2"
-    },
-    {
-      "id": "2fd8",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
       "status": "",
-      "assignee": "",
-      "priority": ""
+      "assignee": "newGuy",
+      "priority": "P3"
     },
     {
       "id": "28d6",
@@ -186,129 +96,19 @@
       "description": "Checking",
       "start_Date": "",
       "end_Date": "",
-      "status": "Pending",
+      "status": "",
       "assignee": "newGuy1",
-      "priority": ""
+      "priority": "P3"
     },
     {
-      "id": "4e38",
-      "title": "",
-      "description": "",
-      "start_Date": "",
+      "id": "1629",
+      "title": "task 2",
+      "description": "second",
+      "start_Date": "2024-03-22",
       "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "a664",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "22f7",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "faca",
-      "title": "dnn",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "newGuy2",
-      "priority": ""
-    },
-    {
-      "id": "b680",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "30ff",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "e3e9",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "32ad",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "46fa",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "eecd",
-      "title": "",
-      "description": "no",
-      "start_Date": "2024-04-12",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
+      "status": "In Progress",
+      "assignee": "john",
       "priority": "P2"
-    },
-    {
-      "id": "d7bd",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
-    },
-    {
-      "id": "5c97",
-      "title": "",
-      "description": "",
-      "start_Date": "",
-      "end_Date": "",
-      "status": "",
-      "assignee": "",
-      "priority": ""
     }
   ]
 }

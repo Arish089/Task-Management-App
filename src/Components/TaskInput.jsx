@@ -7,7 +7,7 @@ import { store } from '../redux/store'
 import axios from 'axios'
 
 
-const AddTask = ({onClose,isOpen,FetchTask,edit,id}) => {
+const TaskInput = ({onClose,isOpen,FetchTask,edit,id}) => {
   
     const state = useSelector(store=>store)
 
@@ -30,10 +30,6 @@ const AddTask = ({onClose,isOpen,FetchTask,edit,id}) => {
     
 
     function handleSubmit(e){
-        
-        //console.log(title);
-
-     
 
         console.log(state);
         setShowAlert(false);
@@ -47,14 +43,10 @@ const AddTask = ({onClose,isOpen,FetchTask,edit,id}) => {
        setStatus("")
        setAssignee("")
        setPriority("")
-       
-     // localStorage.clear() 
-       // setTasks([])
-        
-        //dispatch({type:'RESET'})
         
       }
 
+//'create' task
 const PostTask = async (data)=>{
   try {
     let resp = await axios({
@@ -79,6 +71,7 @@ try {
 }
 }
 
+//'update' task
 const EditTask = async ()=>{
   try {
     let res = await axios({
@@ -97,10 +90,10 @@ const EditTask = async ()=>{
 }
 
 useEffect(() => {
-        if (edit && isOpen) {
-            FetchTask2().then(final => final.id === id ? setSingleTask(final) : null);
-        }
-    }, [edit, isOpen]);
+  if (edit && isOpen){
+    FetchTask2().then(final =>setSingleTask(final))
+  }
+},[edit, isOpen]);
 
 const handleSubmit2 = ()=>{
 console.log(singleTask);
@@ -114,7 +107,9 @@ const handleKeyDown = (event) => {
   }}
   return (
     <Box>
-         
+         {
+          // Modal for creating task
+         }
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -157,7 +152,7 @@ const handleKeyDown = (event) => {
                 dispatch({type:STATUS, payload:e.target.value})}}>
                   <option defaultValue=""></option>
                     <option value="Pending">Pending</option>
-                    <option value="In Progress">in Progress</option>
+                    <option value="In Progress">In Progress</option>
                     <option value="Completed" disabled={end === "" || new Date(end) > new Date() ?true: false } >Completed</option>
                     <option value="Deployed" disabled={end === "" || new Date(end) > new Date() ?true: false }>Deployed</option>
                     <option value="Deferred" >Deferred</option>
@@ -192,7 +187,9 @@ const handleKeyDown = (event) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
+{
+// Modal for editing task
+}
 {edit && <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -216,7 +213,7 @@ const handleKeyDown = (event) => {
                 <Select value={status} onChange={(e)=>{setStatus(e.target.value) 
                 dispatch({type:STATUS, payload:e.target.value})}} placeholder={singleTask.status}>
                     <option value="Pending">Pending</option>
-                    <option value="In Progress">in Progress</option>
+                    <option value="In Progress">In Progress</option>
                     <option value="Completed" disabled={new Date(end) > new Date() ?true: false } >Completed</option>
                     <option value="Deployed" disabled={ new Date(end) > new Date() ?true: false }>Deployed</option>
                     <option value="Deferred" >Deferred</option>
@@ -245,11 +242,13 @@ const handleKeyDown = (event) => {
                     <option value="P2">P2</option>
                     <option value="P3">P3</option>
                 </Select>
+                
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={()=>{FetchTask()
+            <Button colorScheme='blue' mr={3} 
+            onClick={()=>{FetchTask()
             onClose()}}>
               Close
             </Button>
@@ -261,4 +260,4 @@ const handleKeyDown = (event) => {
       </Box>) 
 }
 
-export default AddTask
+export default TaskInput
