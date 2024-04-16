@@ -12,7 +12,7 @@
 *Run the application* : 
  npm run dev
 
-2. Ive used db.json as database here to store and manipulate the data which needs to be connected to the json-server
+2. I've used db.json as database here to store and manipulate the data which needs to be connected to the json-server
 
 3. Apart from "CRUD" operation, I've also included sorting and filtering functionalities to enhance the app.
 
